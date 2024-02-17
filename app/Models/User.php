@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Psy\Readline\Hoa\Console;
 
 class User extends Authenticatable
 {
@@ -54,9 +55,13 @@ class User extends Authenticatable
     }
 
     public function getImageURL(){
+
+        echo "<script>console.log('" . $this->image . "');</script>";
         if($this->image){
-            return url('storage/'.$this->image);
+           
+            return url('storage'.$this->image);
         }
+        
         return "https://api.dicebear.com/6.x/fun-emoji/svg?seed={$this->name}";
     }
 }

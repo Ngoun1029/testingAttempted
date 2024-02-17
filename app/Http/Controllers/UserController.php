@@ -42,8 +42,13 @@ class UserController extends Controller
         
         if(request()->has('image')){
             $imagePath = request()->file('image')->store('profile', 'public');
-            $validatedp['image'] = $imagePath;
-            Storage::disk('public')->delete($user->image);
+            $validated['image'] = $imagePath;
+            
+
+        // Check if the user has an image before trying to delete it
+            if ($user->image) {
+                Storage::disk('public')->delete($user->image);
+            }
         }
 
         $user->update($validated);
